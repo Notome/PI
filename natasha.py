@@ -1,3 +1,4 @@
+#2 задание
 def create_grid(size):
     return [[" "] * size for _ in range(size)]
 
@@ -38,6 +39,27 @@ def print_grid(M):
 
 M = create_grid(10)
 draw_star(M)
+
+#3 задание 
+def create_grid(size):
+    return [[" "] * size for _ in range(size)]
+
+def draw_eyes(M, c):
+    M[3][3] = c  
+    M[3][6] = c  
+
+def draw_smile(M, c):
+    M[6][3: 7] = [c]*4
+    M[5][2] = c
+    M[5][7] = c
+  
+M = create_grid(10)
+draw_eyes(M, "*")
+draw_smile(M, "*")
+
+for row in M:
+    print("".join(row))
+
 draw_dot(M)
 draw_parenthesis(M)
 draw_parenthesis_down(M)
