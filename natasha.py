@@ -93,7 +93,7 @@ print(D)
 def F(a, b, c, n):
     x, y, z = sorted([a, b, c], reverse = True)
     result = x
-    result += y if abs(n - result) > abs(n - (result - y)) else -y
+    result += y if abs(n - result) > abs(n - (result + y)) else -y
     result += z if abs(n - result) > abs(n - (result + z)) else -z
     return result
 
