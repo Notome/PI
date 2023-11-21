@@ -65,3 +65,13 @@ draw_parenthesis(M)
 draw_parenthesis_down(M)
 draw_rectangle(M)
 print_grid(M)
+#5 задание 
+def F(*args):
+    result = 0
+    for x in args:
+        result = result + x
+    return result
+
+A1, A2, A4, A8, A16, A32, A64 = 1, 2, 4, 8, 16, 32, 64
+D = F(A4, A16, A64) 
+print(D)
