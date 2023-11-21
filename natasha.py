@@ -1,0 +1,45 @@
+def create_grid(size):
+    return [[" "] * size for _ in range(size)]
+
+def draw_star(M):
+    for i in range(7):
+        M[i][3] = "*"
+    M[3][:7] = ["*"] * 7
+
+def draw_dot(M):
+    M[0][2] = "."
+    for i in range(1, 3):
+        M[i][1:3] = ["."] * 2
+    M[2][:3] = ["."] * 3
+
+def draw_parenthesis(M):
+    for i in range(1, 3):
+        M[i][6:9] = [")"] * 3
+    M[3][8] = ")"
+    M[2][6] = " " # Clear cell
+
+def draw_parenthesis_down(M):
+    for i in range(6, 9):
+        M[i][1] = "("
+    for i in range(7, 9):
+        M[i][2] = "("
+    M[8][1:4] = ["("] * 3
+
+def draw_rectangle(M):
+    M[4][4:] = ["0"] * 6
+    M[9][4:] = ["0"] * 6
+    for i in range(4, 10):
+        M[i][4] = "0"
+        M[i][9] = "0"
+
+def print_grid(M):
+    for row in M:
+        print("".join(row))
+
+M = create_grid(10)
+draw_star(M)
+draw_dot(M)
+draw_parenthesis(M)
+draw_parenthesis_down(M)
+draw_rectangle(M)
+print_grid(M)
