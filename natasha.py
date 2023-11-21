@@ -89,3 +89,12 @@ def F(*args):
 A1, A2, A4, A8, A16, A32, A64 = 1, 2, 4, 8, 16, 32, 64
 D = F(A16, A32, A2, A1)
 print(D)  
+#7 задание 
+def F(a, b, c, n):
+    x, y, z = sorted([a, b, c], reverse = True)
+    result = x
+    result += y if abs(n - result) > abs(n - (result - y)) else -y
+    result += z if abs(n - result) > abs(n - (result + z)) else -z
+    return result
+
+print(F(2, 8, 25, 19))  #вывод 19
