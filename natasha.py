@@ -97,4 +97,41 @@ def F(a, b, c, n):
     result += z if abs(n - result) > abs(n - (result + z)) else -z
     return result
 
+#8 задание
+def FA(): 
+    return FD() * 8 #FD вставить
+def FB():
+    return 2 
+def FC():
+    return 3 + FE() #FE вставить
+def FD():
+    return 18 / FC() #FC вставить
+def FE():
+    return 14 / FB() #FB вставить
+
+Y = FA() #FA вставить 
+print (Y)
+
 print(F(2, 8, 25, 19))  #вывод 19
+#9 задание не уверен в нем, если что поспрашивай сделал ли кто, но вроде получилось.
+def F(x, y):
+    r = 0
+    if F.z == 0:
+        r = x + y
+    if F.z == 1:
+        r = x - y
+    if x == y - 3:
+        F.z = 1
+    if x == y and y < 5:
+        F.z = 0
+    return r
+
+F.z = -1
+a, b, c, d = [int(x) for x in input().split()]
+
+x = a  # Подстановка значения a в переменную x
+y = b  # Подстановка значения b в переменную y
+
+result = b - d + c - a
+
+print(result)
