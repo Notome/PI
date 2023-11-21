@@ -75,3 +75,17 @@ def F(*args):
 A1, A2, A4, A8, A16, A32, A64 = 1, 2, 4, 8, 16, 32, 64
 D = F(A4, A16, A64) 
 print(D)
+#6 задание 
+def F(*args):
+    result = 0
+    args = sorted(args, reverse=True)
+    for num in args:
+        if result + num <= 51:
+            result += num
+        elif result - num >= 0:
+            result -= num
+    return result
+
+A1, A2, A4, A8, A16, A32, A64 = 1, 2, 4, 8, 16, 32, 64
+D = F(A16, A32, A2, A1)
+print(D)  
