@@ -38,7 +38,13 @@ def print_grid(M):
         print("".join(row))
 
 M = create_grid(10)
+
 draw_star(M)
+draw_dot(M)
+draw_parenthesis(M)
+draw_parenthesis_down(M)
+draw_rectangle(M)
+print_grid(M)
 
 #3 задание 
 def create_grid(size):
@@ -59,12 +65,6 @@ draw_smile(M, "*")
 
 for row in M:
     print("".join(row))
-
-draw_dot(M)
-draw_parenthesis(M)
-draw_parenthesis_down(M)
-draw_rectangle(M)
-print_grid(M)
 #5 задание 
 def F(*args):
     result = 0
