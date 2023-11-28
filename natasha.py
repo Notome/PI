@@ -135,3 +135,27 @@ y = b  # Подстановка значения b в переменную y
 result = b - d + c - a
 
 print(result)
+
+
+#хз какое задание код номер 2
+
+def F(*args):
+    args = sorted(list(args), reverse = True)
+    closeness = 0
+    result = 0
+    for x in args:
+        if result == 0:
+            result = x 
+        if x != 0:
+            if result == 19:
+                break 
+            if abs(19 - (result * x)) < closeness:
+                result *= x 
+            elif abs(19 - (result / x)) < closeness and result % x == 0:
+                result /= x
+            elif abs(19 - (result - x)) < closeness:
+                result -= x 
+            elif abs(19 - (result + x)) < closeness:
+                result += x 
+        closeness = abs(19 - result)
+    return result 
