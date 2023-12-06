@@ -159,3 +159,55 @@ def F(*args):
                 result += x 
         closeness = abs(19 - result)
     return result 
+
+X = [32, 42, 17, 19, 11, 20, 14, 16, 38, 5]
+result = ""
+
+for x in X:
+    if x > 25:
+        if x >= 42:
+            if x > 48:
+                if x <= 58:
+                    result += 'Е'
+                else:
+                    if x == 60:
+                        result += 'З' 
+                    else:
+                        result += 'Ж'
+            else:
+                result += 'И'
+        else:
+            if x == 40:
+                result += 'Д' 
+            else:
+                if x <= 34:
+                    if x != 28:
+                        result += 'Г' 
+                    else:
+                        result += 'Б' 
+                else:
+                    result += 'А' 
+    else:
+        if x < 10:
+            if x >= 3:
+                if x != 5:
+                    result += 'Н' 
+                else:
+                    result += 'М'
+            else:
+                if x > 0:
+                    result += 'К' 
+                else:
+                    result += 'Л' 
+        else:
+            if x >= 17:
+                if x > 20:
+                    result += 'Р' 
+                else:
+                    result += 'П' 
+            else:
+                if x <= 14:
+                    result += 'О'
+                else:
+                    result += 'Т'
+print(result)
