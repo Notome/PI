@@ -1,13 +1,14 @@
 #почти везде 4 и 6 варианты
-#использовать только в кач-ве образца
-#4-6 варианты заняты, смотреть на коды и делать свои варианты 
 #возможны синтаксические ошибки
+#4 и 6 варианты уже заняты, можно только смотреть и делать свои 
+#задания +- похожи
 
 import numpy as np
 import math
 import matplotlib.pyplot as plt
 from PIL import Image, ImageDraw
 from itertools import permutations 
+import re 
 
 #3 задание 
 def lab_3_2_1(x=0, y=0, x1=-4, y1=0, x2=0, y2=4, x3=4, y3=0):
@@ -906,7 +907,7 @@ def lab_13_3_6():
     print(task(d_2))
 lab_13_3_6()
 
-def lab_14_4_4(a, b, c, d):
+def lab_13_4_4(a, b, c, d):
     def perms(n1, n2, n3, n4):
         lst = [n1, n2, n3, n4]
         lst = list(permutations(lst, 3))
@@ -936,8 +937,9 @@ def lab_14_4_4(a, b, c, d):
         else:
             print(f'{x} - не треугольник')
 
-lab_14_4_4(5, 4, 4, 4)
-def lab_14_4_6():
+lab_13_4_4(5, 4, 4, 4)
+
+def lab_13_4_6():
     def compare_investments(principal1, time1, principal2, time2, rate):
         def calculate_income(principal, rate, time):
             return principal * rate * time / 100
@@ -959,5 +961,82 @@ def lab_14_4_6():
     
     result = compare_investments(principal1, time1, principal2, time2, rate)
     print(result)
-lab_14_4_6()
+lab_13_4_6()
+
+def lab_14_1_1(): #создайте файл hello_world.txt и напишите туда что-то
+    with open('hello_world.txt', 'r') as file:
+        data = file.read()
+
+    new_data = data[::2]
+
+    with open('hello_world.txt', 'w') as file:
+        file.write(new_data)
+lab_14_1_1()
+
+def lab_14_1_2(): #создать файл list.txt где будут фамилии
+    def task(file_name, my_name): 
+        students = {}
+        same_name_count = 0
+        same_surname = False
+
+        with open(file_name, 'r', encoding='utf-8') as file:
+            for line in file:
+                full_name = line.strip().split()
+                surname = full_name[0]
+                name = full_name[1]
+
+                if name == my_name:
+                    same_name_count += 1
+
+                if surname in students:
+                    same_surname = True
+                else:
+                    students[surname] = name
+
+        with open('report.txt', 'w', encoding='utf-8') as report_file:
+            report_file.write(f"Отчет составлен {my_name}.\n")
+            report_file.write(f"Количество студентов в группе с именем {my_name} - {same_name_count} студента.\n")
+
+            if same_surname:
+                report_file.write(f"В группе есть однофамилец - {surname} {students[surname]}\n")
+            else:
+                report_file.write("В группе нет однофамильцев.\n")
+    task('list.txt', 'Иван')
+lab_14_1_2()
+
+def lab_14_2_4(): #создать фалй с текстом input_file.txt
+    def remove_duplicate_words(input_file, output_file):
+        with open(input_file, 'r', encoding='utf-8') as file:
+            text = file.read()
+
+        sentences = re.split(r'(?<=[.!?])\s+', text)
+
+        cleaned_sentences = []
+        for sentence in sentences:
+            words = sentence.split()
+            unique_words = []
+            for word in words:
+                if word not in unique_words:
+                    unique_words.append(word)
+            cleaned_sentence = ' '.join(unique_words)
+            cleaned_sentences.append(cleaned_sentence)
+
+        with open(output_file, 'w', encoding='utf-8') as file:
+            file.write(' '.join(cleaned_sentences))
+    remove_duplicate_words('input_file.txt', 'output.txt')
+lab_14_2_4()
+
+def lab_14_2_6():
+    def task(input_file):
+        with open(input_file, 'r', encoding='utf-8') as file:
+            text = file.read()
+        sentences = re.split(r'[.!?;,\s]\s*', text)
+        sentences = [sentence for sentence in sentences if sentence]
+        return sentences
+
+    sentences = task('push.txt')
+    sentences = list(map(lambda x: x.lower(), sentences))
+    sentences = sorted(sentences, key= lambda x: len(x))
+    return f'Количество: {sentences.count(sentences[-1])}, слово: {sentences[-1]}, длина: {len(sentences[-1])}'
+print(lab_14_2_6())
 
