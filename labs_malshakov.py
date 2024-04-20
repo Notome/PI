@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw
 from itertools import permutations 
 
 #3 задание 
-def T2_1(x=0, y=0, x1=-4, y1=0, x2=0, y2=4, x3=4, y3=0):
+def lab_3_2_1(x=0, y=0, x1=-4, y1=0, x2=0, y2=4, x3=4, y3=0):
     def area(x1, y1, x2, y2, x3, y3):
         return abs(0.5 * (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)))
     ABC = area(x1, y1, x2, y2, x3, y3)
@@ -14,9 +14,9 @@ def T2_1(x=0, y=0, x1=-4, y1=0, x2=0, y2=4, x3=4, y3=0):
     PAC = area(x1, y1, x, y, x3, y3)
     PAB = area(x1, y1, x2, y2, x, y)
     print(ABC == PBC + PAC + PAB) 
-T2_1()    
+lab_3_2_1()    
 
-def T2_2(x=0, y=0, radius=3, x1=0, y1=0, x2=0, y2=3, x3=6, y3=0):
+def lab_3_2_2(x=0, y=0, radius=3, x1=0, y1=0, x2=0, y2=3, x3=6, y3=0):
     def area(x1, y1, x2, y2, x3, y3):
         return abs(0.5 * (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)))
     ins_circ = x**2 + y**2 <= radius ** 2 and x <= 0 and y >= 0
@@ -25,15 +25,15 @@ def T2_2(x=0, y=0, radius=3, x1=0, y1=0, x2=0, y2=3, x3=6, y3=0):
     PAC = area(x1, y1, x, y, x3, y3)
     PAB = area(x1, y1, x2, y2, x, y)
     print(ABC == PBC + PAC + PAB and ins_circ) 
-T2_2()
+lab_3_2_2()
 
-def T2_3(x=0, y=0, radius1=4, radius2= 3):
+def lab_3_2_3(x=0, y=0, radius1=4, radius2= 3):
     ins_circ1= x**2 + y**2 <= radius1**2 and x >= 0 
     ins_circ2= x**2 + y**2 <= radius2**2 and x >= 0 
     print(ins_circ1 and not ins_circ2)
-T2_3()
+lab_3_2_3()
 
-def T2_4(x=0, y=0, x1=-6, y1=0, x2=0, y2=-6, x3=6, y3=0):
+def lab_3_2_4(x=0, y=0, x1=-6, y1=0, x2=0, y2=-6, x3=6, y3=0):
     def area(x1, y1, x2, y2, x3, y3):
         return abs(0.5 * (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)))
     ABC = area(x1, y1, x2, y2, x3, y3)
@@ -41,22 +41,22 @@ def T2_4(x=0, y=0, x1=-6, y1=0, x2=0, y2=-6, x3=6, y3=0):
     PAC = area(x1, y1, x, y, x3, y3)
     PAB = area(x1, y1, x2, y2, x, y)
     print(ABC == PBC + PAC + PAB)
-T2_4()
+lab_3_2_4()
 
-def T2_5(x=0, y=0):
+def lab_3_2_5(x=0, y=0):
     ins_1rec = y >= 0 and y <= 4 and x >= -2 and x <= 1
     ins_2rec = y <= 0 and y >= -3 and x >= -4 and x <= 4
     print(ins_1rec or ins_2rec)
-T2_5() 
+lab_3_2_5() 
 
-def T2_6(x=0, y=0, radius1= 6, radius2=3):
+def lab_3_2_6(x=0, y=0, radius1= 6, radius2=3):
     ins1_circ = x**2 + y**2 <= radius1 ** 2 and y >= 0 and x <= 0
     ins2_circ = x**2 + y**2 <= radius1 ** 2 and y >= 0 and x >= 0 
     ins3_circ = x**2 + y**2 <= radius2 ** 2 and y >= 0 and x >= 0 
     print(ins1_circ or ins2_circ and not ins3_circ)
-T2_6()
+lab_3_2_6()
 
-def T2_7(x=0, y=0, x1=1, y1=4, x2=4, y2=7, x3=7, y3=4, x4=4, y4=1):
+def lab_3_2_7(x=0, y=0, x1=1, y1=4, x2=4, y2=7, x3=7, y3=4, x4=4, y4=1):
     def area(x1, y1, x2, y2, x3, y3):
         return abs((x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2)) / 2)
 
@@ -66,16 +66,16 @@ def T2_7(x=0, y=0, x1=1, y1=4, x2=4, y2=7, x3=7, y3=4, x4=4, y4=1):
     area3 = area(x, y, x3, y3, x4, y4)
     area4 = area(x, y, x4, y4, x1, y1)
     print(total_area == (area1 + area2 + area3 + area4))
-T2_7()
+lab_3_2_7()
 
-#T2_8 см. T2_5
-#T2_9 см. T2_6 
-#T2_10 см. T2_5 
-#T2_11 cм. T2_5 
-#T2_12 см. T2_2 
-#T2_13 см. T2_5
+#lab_3_2_8 см. 5
+#lab_3_2_9 см. 6 
+#lab_3_2_10 см. 5 
+#lab_3_2_11 cм. 5 
+#lab_3_2__12 см. 2 
+#lab_3_2__13 см. 5
 
-def T2_14(x=0, y=0, x1=-4, y1=0, x2=0, y2= 4, x3=4, y3=0, x4=0, y4=-4):
+def lab_3_2_14(x=0, y=0, x1=-4, y1=0, x2=0, y2= 4, x3=4, y3=0, x4=0, y4=-4):
     def area(x1, y1, x2, y2, x3, y3):
         return abs((x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2)) / 2)
     total_area1 = area(x1, y1, x2, y2, x3, y3) + area(x1, y1, x3, y3, x4, y4)
@@ -89,11 +89,11 @@ def T2_14(x=0, y=0, x1=-4, y1=0, x2=0, y2= 4, x3=4, y3=0, x4=0, y4=-4):
     area3_2 = area(x, y, x3-2, y3, x4, y4+2)
     area4_2 = area(x, y, x4, y4+2, x1+2, y1)
     print (total_area1 == (area1 + area2 + area3 + area4) and not total_area2 == (area1_2 + area2_2 + area3_2 + area4_2))
-T2_14()
+lab_3_2_14()
 
-#T2_15 см. T2_6 условие y >= 2 and y <= 6 
+#lab_3_2_15 см. 6 условие y >= 2 and y <= 6 
 
-def T2_16(x=0, y=0, radius= 3, x1=-1, y1=0, x2=-1, y2=3, x3=-4, y3=3, x1_2 = -1, y1_2 = 0, x2_2 = -1, y2_2 = -3, x3_2 = -4, y3_2 = -3):
+def lab_3_2_16(x=0, y=0, radius= 3, x1=-1, y1=0, x2=-1, y2=3, x3=-4, y3=3, x1_2 = -1, y1_2 = 0, x2_2 = -1, y2_2 = -3, x3_2 = -4, y3_2 = -3):
     ins_circ = x ** 2 + y ** 2 <= radius ** 2 and x >= -1
     def area(x1, y1, x2, y2, x3, y3):
         return abs(0.5 * (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)))
@@ -106,12 +106,11 @@ def T2_16(x=0, y=0, radius= 3, x1=-1, y1=0, x2=-1, y2=3, x3=-4, y3=3, x1_2 = -1,
     PAC_2 = area(x1_2, y1_2, x, y, x3_2, y3_2)
     PAB_2 = area(x1_2, y1_2, x2_2, y2_2, x, y)
     print(ins_circ or ABC_1 == PBC_1 + PAC_1 + PAB_1 or ABC_2 == PBC_2 + PAC_2 + PAB_2)
-T2_16()
+lab_3_2_16()
 
-#T2_17 см. T2_2 , 2 треугольника
-#T2_18 см. T2_2, T2_6, 2 квадрата и триугольник 
+#lab_3_2_17 см. 2 , 2 треугольника
+#lab_3_2_18 см. 2, 6: 2 квадрата и триугольник 
 #T2_19 см. T2_2, круг и треугольник 
-import math
 
 def T2_20(x=1, y=2, radius1=2, radius2=2):
     center1_x, center1_y = 0, 3
@@ -288,23 +287,25 @@ def lab_6_1_4(start_x, end_x, step):
                 print(f'При x = {x} м, y = {y} м, невозможно вычислить угол')
 lab_6_1_4(1, 10, 1)
 
-def lab_6_1_6(total_head, total_cost):
-    for bulls in range(total_head + 1):
-        for cows in range(total_head + 1):
-            calfs = total_head - bulls - cows
-            if calfs >= 0:
-                cost = 10 * bulls + 5 * cows + 0.5 * calfs
-                if cost == total_cost:
-                    return bulls, cows, calfs
-    return None, None, None
-
-total_head = 100
-total_cost = 100
-b, co, ca = lab_6_1_6(total_head, total_cost)
-
-print(f"Количество быков: {b}")
-print(f"Количество коров: {co}")
-print(f"Количество телят: {ca}")
+def lab_6_1_6():
+    def task(total_head, total_cost)
+        for bulls in range(total_head + 1):
+            for cows in range(total_head + 1):
+                calfs = total_head - bulls - cows
+                if calfs >= 0:
+                    cost = 10 * bulls + 5 * cows + 0.5 * calfs
+                    if cost == total_cost:
+                        return bulls, cows, calfs
+        return None, None, None
+    
+    total_head = 100
+    total_cost = 100
+    b, co, ca = task(total_head, total_cost)
+    
+    print(f"Количество быков: {b}")
+    print(f"Количество коров: {co}")
+    print(f"Количество телят: {ca}")
+lab_6_1_6()
 
 def lab_7_1_4():
     x = -9
