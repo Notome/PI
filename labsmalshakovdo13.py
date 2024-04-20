@@ -3,6 +3,7 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 from PIL import Image, ImageDraw
+from itertools import permutations 
 
 #3 задание 
 def T2_1(x=0, y=0, x1=-4, y1=0, x2=0, y2=4, x3=4, y3=0):
@@ -499,222 +500,459 @@ def matrix_generatror(m, n):
     #matrix = np.array(matrix) 
     return matrix 
 
-def lab_10_1_4(matrix):
-    
-    average = np.mean(matrix)
-    
-    count_greater = np.sum(matrix > average)
-    count_less = np.sum(matrix < average)
-    
-    if count_greater > count_less:
-        result = f"элементов больше среднего ({count_greater}), чем меньше ({count_less})."
-    elif count_less > count_greater:
-        result = f"элементов меньше среднего ({count_less}), чем больше ({count_greater})."
-    else:
-        result = "Количество элементов больше и меньше среднего равны."
-    
-    return average, result
-
-a= matrix_generatror(3,3)
-print(a)
-print(lab_10_1_4(a))
-
-def lab_10_1_6(matrix):
-    max_abs_element = np.max(np.abs(matrix)) 
-    new_matrix = matrix / max_abs_element  
-    return new_matrix
-    
-b= matrix_generatror(3,3)
-print(b)
-print(lab_10_1_6(a))
-
-def lab_10_2_4(matrix):
-    answer = []
-    for i in range(len(matrix[0])): 
-        count = 0
-        for j in range(len(matrix)):  
-            if matrix[j][i] < 0:
-                count += 1
-        answer.append(count)
-    return answer
-
-c= matrix_generatror(3,3)
-print(c)
-print(lab_10_2_4(c))
-
-def lab_10_2_6(matrix):
-    result = []
-    for col in range(len(matrix[0])):
-        column_sum = 0
-        for row in range(len(matrix)):
-            if row % 2 == 1:  
-                column_sum += matrix[row][col]
-        result.append(column_sum)
-    return 
-
-d= matrix_generatror(2,2)
-print('\n',d)
-print(lab_10_2_6(d))
-
-def lab_10_3_4(matrix):
-    N = len(matrix) // 2
-    for i in range(N):
-        for j in range(N):
-            matrix[i][j], matrix[i + N][j + N] = matrix[i + N][j + N], matrix[i][j]
-    return matrix
-
-e = matrix_generatror(2,2)
-print('\n',e)
-print(lab_10_3_4(e))
-
-def lab_10_3_6(matrix):
-    min_element = min(matrix[i][i] for i in range(len(matrix)))
-    min_index = [i for i in range(len(matrix)) if matrix[i][i] == min_element][0]
-
-    new_matrix = []
-    for i in range(len(matrix)):
-        if i != min_index:
-            new_row = []
-            for j in range(len(matrix)):
-                if j != min_index:
-                    new_row.append(matrix[i][j])
-            new_matrix.append(new_row)
-
-    return new_matrix
-
-f = matrix_generatror(3,3)
-print('\n',f) 
-print(lab_10_3_6(f))
-
-def lab_10_4_4(N):
-    matrix = [[0] * N for _ in range(N)]  
-
-    for i in range(N):
-        for j in range(N):
-            if i == j:  
-                matrix[i][j] = 1
-            elif i < j: 
-                matrix[i][j] = j - i + 1
-            else: 
-                matrix[i][j] = i - j + 1
-
-    return np.array(matrix)
-
-g = 3 
-print('\n', lab_10_4_4(g))
-
-def lab_10_4_6(matrix):
-    if not matrix or not matrix[0]:
-        return []
-    
-    result = []
-    row_begin, row_end = 0, len(matrix) - 1
-    col_begin, col_end = 0, len(matrix[0]) - 1
-    
-    while row_begin <= row_end and col_begin <= col_end:
-        for j in range(col_begin, col_end + 1):
-            result.append(matrix[row_begin][j])
-        row_begin += 1
-        for i in range(row_begin, row_end + 1):
-            result.append(matrix[i][col_end])
-        col_end -= 1
-        if row_begin <= row_end:
-            for j in range(col_end, col_begin - 1, -1):
-                result.append(matrix[row_end][j])
-            row_end -= 1
-        if col_begin <= col_end:
-            for i in range(row_end, row_begin - 1, -1):
-                result.append(matrix[i][col_begin])
-            col_begin += 1
-    return result
-
-g1 = matrix_generatror(3, 3)
-print('\n',lab_10_4_6(g1))
-
-def lab_11_1_4(N):
-    matrix = [[0] * N for _ in range(N)]  
-    i, j = 1, 2 
-    for x in range(N):
-        for y in range(N):
-            if x == y:
-                matrix[x][y] = i * j 
-                i += 1
-                j += 1
-    return np.array(matrix) 
-h = 3 
-print('\n', lab_11_1_4(h))
-
-def lab_11_1_6(N):
-    matrix = [[0] * N for _ in range(N)]
-    for i in range(N):
-        for j in range(N):
-            if j >= N - i:
-                matrix[i][j] = 0
-            else:
-                matrix[i][j] = i + 1
-    return np.array(matrix)
-
-j = 9
-print(lab_11_1_6(j)) 
-
-def lab_11_2_4(matrix):
-    print(matrix)
-    for row in matrix:
-        if len(row) < 2:
-            continue
+def lab_10_1_4():
+    def task(matrix):
+        average = np.mean(matrix)
         
-        max_val = max(row)
-        min_val = min(row)
+        count_greater = np.sum(matrix > average)
+        count_less = np.sum(matrix < average)
         
-        max_index = row.index(max_val)
-        min_index = row.index(min_val)
-        
-        row[0], row[max_index] = row[max_index], row[0]
-        row[-1], row[min_index] = row[min_index], row[-1]
-    
-    return matrix
-
-k = matrix_generatror(3, 3)
-print(lab_11_2_4(k))
-
-def lab_11_2_6(matrix):
-    print(np.array(matrix))
-    saddle_points = []
-    for i in range(len(matrix)):
-        row = matrix[i]
-        min_in_row = min(row)
-        col_index = row.index(min_in_row)
-        if all(row[col_index] >= matrix[j][col_index] for j in range(len(matrix))):
-            saddle_points.append((i, col_index))
-    
-    return saddle_points
-
-l = matrix_generatror(3, 3)
-print(lab_11_2_6(l)) 
-
-def lab_12_1_4(string):
-    return string.count('*') + string.count(';') + string.count(':') 
-m = '123124;:*vkdfnwvjnjnqewjcnwejhcbje' 
-print(lab_12_1_4(m))
-
-def lab_12_1_6(string):
-    return string.index(':') + 1 
-n = '123456789:'
-print(lab_12_1_6(n))
-
-def lab_12_2_4(lst):
-    return sorted(lst) 
-o = ['cde', 'abc', 'bcd']
-print(lab_12_2_4(o))
-
-def lab_12_2_6(string):
-    vowels = ['а', 'е', 'у', 'ы', 'о', 'э', 'я', 'и', 'ю', 'ё']
-    vowels_c, conson_c = 0, 0
-    for x in string:
-        if x in vowels:
-            vowels_c += 1
+        if count_greater > count_less:
+            result = f"элементов больше среднего ({count_greater}), чем меньше ({count_less})."
+        elif count_less > count_greater:
+            result = f"элементов меньше среднего ({count_less}), чем больше ({count_greater})."
         else:
-            conson_c += 1 
-    return f'Количество гласных: {vowels_c}, согласных: {conson_c}'
-p = 'абвгдеё' 
-print(lab_12_2_6(p))
+            result = "Количество элементов больше и меньше среднего равны."
+        
+        return average, result
+    
+    a= matrix_generatror(3,3)
+    print(a)
+    print(task(a))
+lab_10_1_4()
+
+def lab_10_1_6():
+    def task(matrix):
+        max_abs_element = np.max(np.abs(matrix)) 
+        new_matrix = matrix / max_abs_element  
+        return new_matrix
+        
+    b= matrix_generatror(3,3)
+    print(b)
+    print(task(a))
+lab_10_1_6()
+
+def lab_10_2_4():
+    def task(matrix):
+        answer = []
+        for i in range(len(matrix[0])): 
+            count = 0
+            for j in range(len(matrix)):  
+                if matrix[j][i] < 0:
+                    count += 1
+            answer.append(count)
+        return answer
+    
+    c= matrix_generatror(3,3)
+    print(c)
+    print(task(c))
+lab_10_2_4()
+
+def lab_10_2_6():
+    def task(matrix):
+        result = []
+        for col in range(len(matrix[0])):
+            column_sum = 0
+            for row in range(len(matrix)):
+                if row % 2 == 1:  
+                    column_sum += matrix[row][col]
+            result.append(column_sum)
+        return matrix 
+
+    d= matrix_generatror(2,2)
+    print('\n',d)
+    print(task(d))
+lab_10_2_6()
+
+def lab_10_3_4():
+    def task(matrix):
+        N = len(matrix) // 2
+        for i in range(N):
+            for j in range(N):
+                matrix[i][j], matrix[i + N][j + N] = matrix[i + N][j + N], matrix[i][j]
+        return matrix
+    
+    e = matrix_generatror(2,2)
+    print('\n',e)
+    print(task(e))
+lab_10_3_4()
+    
+def lab_10_3_6():
+    def task(matrix):
+        min_element = min(matrix[i][i] for i in range(len(matrix)))
+        min_index = [i for i in range(len(matrix)) if matrix[i][i] == min_element][0]
+    
+        new_matrix = []
+        for i in range(len(matrix)):
+            if i != min_index:
+                new_row = []
+                for j in range(len(matrix)):
+                    if j != min_index:
+                        new_row.append(matrix[i][j])
+                new_matrix.append(new_row)
+    
+        return new_matrix
+    
+    f = matrix_generatror(3,3)
+    print('\n',f) 
+    print(task(f))
+lab_10_3_6()
+
+def lab_10_4_4():
+    def task(N):
+        matrix = [[0] * N for _ in range(N)]  
+    
+        for i in range(N):
+            for j in range(N):
+                if i == j:  
+                    matrix[i][j] = 1
+                elif i < j: 
+                    matrix[i][j] = j - i + 1
+                else: 
+                    matrix[i][j] = i - j + 1
+    
+        return np.array(matrix)
+    
+    g = 3 
+    print('\n', task(g))
+lab_10_4_4()
+
+def lab_10_4_6():
+    def task(matrix):
+        if not matrix or not matrix[0]:
+            return []
+        
+        result = []
+        row_begin, row_end = 0, len(matrix) - 1
+        col_begin, col_end = 0, len(matrix[0]) - 1
+        
+        while row_begin <= row_end and col_begin <= col_end:
+            for j in range(col_begin, col_end + 1):
+                result.append(matrix[row_begin][j])
+            row_begin += 1
+            for i in range(row_begin, row_end + 1):
+                result.append(matrix[i][col_end])
+            col_end -= 1
+            if row_begin <= row_end:
+                for j in range(col_end, col_begin - 1, -1):
+                    result.append(matrix[row_end][j])
+                row_end -= 1
+            if col_begin <= col_end:
+                for i in range(row_end, row_begin - 1, -1):
+                    result.append(matrix[i][col_begin])
+                col_begin += 1
+        return result
+    
+    g1 = matrix_generatror(3, 3)
+    print('\n',task(g1))
+lab_10_4_6()
+
+def lab_11_1_4():
+    def task(N):
+        matrix = [[0] * N for _ in range(N)]  
+        i, j = 1, 2 
+        for x in range(N):
+            for y in range(N):
+                if x == y:
+                    matrix[x][y] = i * j 
+                    i += 1
+                    j += 1
+        return np.array(matrix) 
+    h = 3 
+    print('\n', task(h))
+lab_11_1_4()
+
+def lab_11_1_6():
+    def task(N):
+        matrix = [[0] * N for _ in range(N)]
+        for i in range(N):
+            for j in range(N):
+                if j >= N - i:
+                    matrix[i][j] = 0
+                else:
+                    matrix[i][j] = i + 1
+        return np.array(matrix)
+    
+    j = 9
+    print(task(j)) 
+lab_11_1_6()
+
+def lab_11_2_4():
+    def task(matrix):
+        print(matrix)
+        for row in matrix:
+            if len(row) < 2:
+                continue
+            
+            max_val = max(row)
+            min_val = min(row)
+            
+            max_index = row.index(max_val)
+            min_index = row.index(min_val)
+            
+            row[0], row[max_index] = row[max_index], row[0]
+            row[-1], row[min_index] = row[min_index], row[-1]
+        
+        return matrix
+    
+    k = matrix_generatror(3, 3)
+    print(task(k))
+lab_11_2_4()
+
+def lab_11_2_6():
+    def task(matrix):
+        print(np.array(matrix))
+        saddle_points = []
+        for i in range(len(matrix)):
+            row = matrix[i]
+            min_in_row = min(row)
+            col_index = row.index(min_in_row)
+            if all(row[col_index] >= matrix[j][col_index] for j in range(len(matrix))):
+                saddle_points.append((i, col_index))
+        
+        return saddle_points
+    
+    l = matrix_generatror(3, 3)
+    print(task(l)) 
+lab_11_2_6()
+
+def lab_12_1_4():
+    def task(string):
+        return string.count('*') + string.count(';') + string.count(':') 
+    m = '123124;:*vkdfnwvjnjnqewjcnwejhcbje' 
+    print(task(m))
+lab_12_1_4()
+
+def lab_12_1_6():
+    def task(string):
+        return string.index(':') + 1 
+    n = '123456789:'
+    print(task(n))
+lab_12_1_6()
+
+def lab_12_2_4():
+    def task(lst):
+        return sorted(lst) 
+    o = ['cde', 'abc', 'bcd']
+    print(task(o))
+lab_12_2_4()
+
+def lab_12_2_6():
+    def task(string):
+        vowels = ['а', 'е', 'у', 'ы', 'о', 'э', 'я', 'и', 'ю', 'ё']
+        vowels_c, conson_c = 0, 0
+        for x in string:
+            if x in vowels:
+                vowels_c += 1
+            else:
+                conson_c += 1 
+        return f'Количество гласных: {vowels_c}, согласных: {conson_c}'
+    p = 'абвгдеё' 
+    print(task(p))
+lab_12_2_6()
+
+def lab_13_1_4():
+    def calculate_y(x):
+        F1 = lambda num: -7 + np.sqrt(9 - (num + 9)**2)
+        F2 = lambda num: None
+        F3 = lambda num: 5*num + 13
+        F4 = lambda num: num + 1
+        F5 = lambda num: -2/3 * num - 7/3
+        F6 = lambda num: 1/2 * num - 21/2
+
+        return (
+            F1(x) if x <= -6 else
+            F2(x) if x <= -4 else
+            F3(x) if x <= -3 else
+            F4(x) if x <= -2 else
+            F5(x) if x <= 7 else
+            F6(x)
+        )
+
+    x = -9
+    h = 0.1  
+
+    while x <= 9:
+        y = calculate_y(x)
+        print(f"x = {x}, y = {y}")
+        x += h
+lab_13_1_4()
+
+def lab_13_1_6():
+    def calculate_y(x):
+        F1 = lambda num: -5 - np.sqrt(1 - (num + 9) ** 2)
+        F2 = lambda num: -4 - np.sqrt(1 - (num + 8) ** 2)
+        F3 = lambda num: -3/5 * num - 41/5
+        F4 = lambda num: 9/5 * num - 17/5
+        F5 = lambda num: -1/3 * num + 3
+        F6 = lambda num: 2 - np.sqrt(1 - (num - 6) ** 2)
+        F7 = lambda num: -0.8125*num + 8.75
+        F8 = lambda num: 2 - np.sqrt(4 - (num - 10) ** 2)
+
+        return (
+            F1(x) if x <= -8 else
+            F2(x) if x <= -7 else
+            F3(x) if x <= -2 else
+            F4(x) if x <= 3 else
+            F5(x) if x <= 6 else
+            F6(x) if x <= 7 else
+            F7(x) if x >= 7 and x <= 8 else
+            F8(x) if x <= 10 else None
+        )
+
+    x = -9
+    h = 0.1
+
+    while x <= 10:
+        y = calculate_y(x)
+        print(f"x = {x}, y = {y}")
+        x += h
+lab_13_1_6()
+
+def lab_13_2_4():
+    def get_number():
+        num = input("Введите число (или '*' для завершения): ")
+        return num
+
+    def calculate_average(sum, count):
+        if count == 0:
+            print("Вы не ввели ни одного числа.")
+        else:
+            average = sum / count
+            print(f"Среднее значение элементов: {average}")
+
+    def process_numbers(sum=0, count=0):
+        num = get_number()
+        
+        if num == '*':
+            calculate_average(sum, count)
+        else:
+            sum += float(num)
+            count += 1
+            process_numbers(sum, count)
+
+    process_numbers()
+lab_13_2_4()
+
+def lab_13_2_6():
+    def get_number():
+        num = input('Введите число (или \'*\' для завершения): ')
+        return num
+
+    def process_list(lst):
+        if not lst:
+            print('Список пустой')
+            return None
+        else:
+            return sum([int(x) for x in lst if x < 0])
+
+    def collect_numbers(lst=None):
+        if lst is None:
+            lst = []
+
+        num = get_number()
+
+        if num == '*':
+            return process_list(lst)
+        else:
+            lst.append(int(num))
+            print(lst)
+            return collect_numbers(lst)
+
+    result = collect_numbers()
+    print(f"Сумма отрицательных чисел в списке: {result}")
+lab_13_2_6()
+
+def lab_13_3_4():
+    def task(matrix):
+        def check1(x):
+            return x < 0
+        columns = len(matrix[0])
+        counts = [0] * columns
+    
+        for row in matrix:
+            for i in range(columns):
+                if check1(row[i]):
+                    counts[i] += 1
+    
+        return counts
+    
+    c_2 = matrix_generatror(3,3)
+    print('\n',np.array(c_2))
+    print(task(c_2))
+lab_13_3_4()
+
+def lab_13_3_6():
+    def task(matrix):
+        def calculate_column_sum(matrix, col):
+            column_sum = 0
+            for row in range(len(matrix)):
+                if row % 2 == 1:
+                    column_sum += matrix[row][col]
+            return column_sum
+        result = []
+        for col in range(len(matrix[0])):
+            column_sum = calculate_column_sum(matrix, col)
+            result.append(column_sum)
+        return result
+    
+    d_2= matrix_generatror(3,3)
+    print('\n',np.array(d_2))
+    print(task(d_2))
+lab_13_3_6()
+
+def lab_14_4_4(a, b, c, d):
+    def perms(n1, n2, n3, n4):
+        lst = [n1, n2, n3, n4]
+        lst = list(permutations(lst, 3))
+        lst = list(map(sorted, lst))  # Применяем функцию sorted к каждому элементу списка
+        return lst
+
+    def check_triangle(sides):
+        a, b, c = sorted(sides)
+        if a + b > c and b + c > a and a + c > b:
+            return True
+        return False
+
+    def check_triangle_type(segment):
+        a, b, c = sorted(segment)
+        if a == b == c:
+            return "Равносторонний треугольник"
+        elif a == b or b == c or a == c:
+            return "Равнобедренный треугольник"
+        else:
+            return "Разносторонний треугольник"
+    
+    segments = perms(a, b, c, d)
+
+    for x in segments:
+        if check_triangle(x):
+            print(f'{x} это - {check_triangle_type(x)}')
+        else:
+            print(f'{x} - не треугольник')
+
+lab_14_4_4(5, 4, 4, 4)
+def lab_14_4_6():
+    def compare_investments(principal1, time1, principal2, time2, rate):
+        def calculate_income(principal, rate, time):
+            return principal * rate * time / 100
+        income1 = calculate_income(principal1, rate, time1)
+        income2 = calculate_income(principal2, rate, time2)
+        
+        if income1 > income2:
+            return f"Большой вклад на малый срок принесет больший доход.Больший вклад: {income1}, меньший вклад: {income2}"
+        elif income1 < income2:
+            return f"Небольшой вклад на длительный срок принесет больший доход.Больший вклад: {income1}, меньший вклад: {income2}"
+        else:
+            return f"Доход от обоих вложений одинаковый.Больший вклад: {income1}, меньший вклад: {income2}"
+    
+    principal1 = 1000
+    time1 = 1
+    principal2 = 500
+    time2 = 5
+    rate = 5  
+    
+    result = compare_investments(principal1, time1, principal2, time2, rate)
+    print(result)
+lab_14_4_6()
+
