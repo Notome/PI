@@ -357,8 +357,7 @@ def lab_7_1_6():
         elif x <= 3: y = 9/5 * x - 17/5
         elif x <= 6: y = -1/3 * x + 3
         elif x <= 7: y = 2 - np.sqrt(1 - (x - 6) ** 2)
-        elif x >= 7 and x <= 8: y = -0.8125*x + 8.75
-        else: y = 2 - np.sqrt(4 - (x - 10) ** 2)
+        else: y = 2 - np.sqrt(4 - (x - 9) ** 2)
 
         x_values.append(x)
         y_values.append(y)
